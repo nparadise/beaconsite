@@ -1,0 +1,28 @@
+div.signup-box {
+	width: 500px;
+	margin: auto;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 100px 110px;
+	margin-top: 100px;
+}
+
+div.signup-box form div.id,
+div.signup-box form div.password,
+div.signup-box form div.password_check,
+div.signup-box form div.email {
+	display: inline-block;
+	width: 100px;
+	margin-bottom: 15px;
+}
+
+div.signup-box form input.submit {
+	margin-top: 10px;
+	margin-left: 55px;
+	padding: 10px 40px;
+	background-color: white;
+	color: black;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+

@@ -1,0 +1,5 @@
+manage.py
+*.pyc
+beaconsite/settings.py
+beaconsite/wsgi.py
+staticfiles/

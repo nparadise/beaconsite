@@ -1,0 +1,65 @@
+#base {
+	width: 900px;
+	margin: auto;
+}
+
+#topbar {
+	position: relative;
+	padding: 10px 0 20px 0;
+	width: 100%;
+}
+
+#topbar div.container {
+	height: 20px;
+}
+
+#topbar ul {
+	z-index: 99;
+}
+
+#topbar ul li {
+	display: inline;
+	list-style: none;
+	font-size: 0.8em;
+	padding-bottom: 15px;
+}
+
+#topbar ul.loginbar {
+	margin: 0;
+}
+
+.pull-right {
+	float: right;
+}
+
+#header {
+	margin-top: 20px;
+}
+
+.navbar {
+	min-height: 40px;
+	margin-bottom: 10px;
+}
+
+.navbar-default {
+	background-color: white;
+	border: 0;
+}
+
+.navbar-brand {
+	position: relative;
+	top: -8px;
+}
+
+.navbar-brand span {
+	font-size: 5em;
+	vertical-align: middle;
+}
+
+ul.navbar-nav li {
+	z-index: 100;
+}
+
+ul li:hover {
+	background-color: #d9d9d9;
+}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+비콘 메인 페이지
+{% endblock %}
+
+{% block extra %}
+<link rel="stylesheet" type="text/css" href='{% static "main/style.css" %}'>
+{% endblock %}
+
+{% block body %}
+<div id="gname">
+	<div class="title-small">
+		연세대학교 개발 동아리
+	</div>
+	<div class="title-big">
+		비콘
+	</div>
+</div>
+{% endblock %}

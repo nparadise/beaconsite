@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+로그인
+{% endblock %}
+
+{% block extra %}
+<link rel="stylesheet" type="text/css" href='{% static "user_manager/style.css" %}'>
+{% endblock %}
+
+{% block body %}
+<div class="signup-box">
+	<form action="signup" method="POST">
+		{% csrf_token %}
+		<div class="id">
+			{{ form.id.label }}
+		</div>
+		{{ form.id }}
+		<br>
+		<div class="password">
+			{{ form.password.label }}
+		</div>
+		{{ form.password }}
+		<br>
+		<div class="password_check">
+			PW again
+		</div>
+		{{ form.password_check }}
+		<br>
+		<div class="email">
+			{{ form.email.label }}
+		</div>
+		{{ form.email }}
+		<br>
+		<input class="submit" type="submit" value="회원가입하기" />
+	</form>
+</div>
+{% endblock %}
