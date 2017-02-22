@@ -3,3 +3,4 @@ manage.py
 beaconsite/settings.py
 beaconsite/wsgi.py
 staticfiles/
+*.png
