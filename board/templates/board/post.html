@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ post.name }}
+{% endblock %}
+
+{% block extra %}
+<link rel="stylesheet" type="text/css" href='{% static "board/style.css" %}'>
+{% endblock %}
+
+{% block body %}
+<h1>{{ post.title }}</h1>
+<div class="title-bar">
+	<span class="post-author">작성자: {{ post.author }}</span>
+	<span class="spliter"></span>
+	<span class="post-reg-date">작성일: {{ post.register_date }}</span>
+</div>
+<div class="post-body">
+	{{ post.body }}
+</div>
+{% endblock %}

@@ -1,3 +1,73 @@
+table.table {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+th:first-child {
+	width: 60%;
+}
+
+th.no_post {
+	text-align: center;
+}
+
+button.create_post {
+	float: right;
+	clear: left;
+	margin-right: 10px;
+}
+
 nav {
 	text-align: center;
+}
+
+
+
+div.title-bar {
+	width: 100%;
+	padding: 5px 10px;
+	margin-bottom: 6px;
+	border: 1px solid gray;
+}
+
+div.title-bar > span {
+	vertical-align: middle;
+	font-size: 1.4em;
+	display: inline-block;
+}
+
+div.title-bar div.left-lean {
+	float: left;
+}
+
+div.title-bar div.right-lean {
+	float: right;
+}
+
+span.spliter {
+	display: inline-block;
+	width: 2px;
+	height: 20px;
+	background-color: lightgray;
+}
+
+span.post-author {
+
+}
+
+span.post-reg-date {
+
+}
+
+div.post-body {
+	clear: both;
+	padding: 10px;
+	border: 1px solid gray;
+	font-size: 1.1em;
+}
+
+
+/*create_post.html*/
+input.write-btn {
+	margin: 0 0 0 50%;
 }
