@@ -2,15 +2,21 @@
 {% load static %}
 
 {% block title %}
-{{ category }} 글 작성
+{{ category }} 글 수정
 {% endblock %}
 
 {% block extra %}
 <link rel="stylesheet" type="text/css" href='{% static "board/style.css" %}'>
+<script>
+	{% if no_auth %}
+	alert('권한이 없습니다.')
+	window.location = '/'
+	{% endif %}
+</script>
 {% endblock %}
 
 {% block body %}
-<form class="form-horizontal write" action="write" method="POST">
+<form class="form-horizontal write" method="POST">
 	{% csrf_token %}
 	<div class="form-group">
 		<label for="inputCategory" class="col-sm-2 control-label">카테고리</label>
@@ -36,19 +42,24 @@
 			{{ form.body }}
 		</div>
 	</div>
-	<input class="btn btn-default write-btn" type="submit" value="작성" />
+	<input class="btn btn-default fix-btn" type="submit" value="수정" />
 </form>
 {% endblock %}
 
 {% block script %}
 <script>
 	$(document).ready(function() {
+
 		var category = $("#id_category"),
-			author = $("#id_author");
+			author = $("#id_author"),
+			title = $('#id_title'),
+			body = $('#id_body');
 		category.val('{{ category }}');
 		category.prop('readonly', true);
-		author.val('{{ request.user }}');
+		author.val('{{ author }}');
 		author.prop('readonly', true);
+		title.val('{{ title }}');
+		body.val('{{ body }}');
 	});
 </script>
 {% endblock %}

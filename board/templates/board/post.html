@@ -19,4 +19,15 @@
 <div class="post-body">
 	{{ post.body }}
 </div>
+{% if fixable %}
+<button id="fix-post" class="btn btn-default" onclick="fix_post();" type="submit">글 수정</button>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+<script>
+var fix_post = function() {
+	window.location = '{{ post.id }}/fix'
+}
+</script>
 {% endblock %}

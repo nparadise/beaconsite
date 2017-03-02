@@ -27,7 +27,6 @@ class LoginView(FormView):
 				auth.login(self.request, user)
 				return super(LoginView, self).form_valid(form)
 		else:
-			print("no")
 			return HttpResponseRedirect('/')
 
 
