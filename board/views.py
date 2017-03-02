@@ -38,7 +38,6 @@ class PostView(DetailView):
 			context['fixable'] = True
 		else:
 			context['fixable'] = False
-		print(context['fixable'])
 		return context
 
 
@@ -80,7 +79,6 @@ class FixPostView(FormView):
 		return context
 
 	def form_valid(self, form):
-		print(self.kwargs['no_auth'])
 		post = Post.objects.get(id=self.kwargs['pk'])
 		post.title = form.cleaned_data['title']
 		post.body = form.cleaned_data['body']
