@@ -103,7 +103,10 @@ class FixProfileView(FormView):
 
 	def form_valid(self, form):
 		user = User.objects.get(username=self.kwargs['username'])
-		detail = UserDetail.objects.get(user=user)
+		try:
+			detail = UserDetail.objects.get(user=user)
+		except UserDetail.DoesNotExist:
+			detail = UserDetail.objects.create(user=user)
 		user.last_name = form.cleaned_data['lastname']
 		user.first_name = form.cleaned_data['firstname']
 		user.email = form.cleaned_data['email']
