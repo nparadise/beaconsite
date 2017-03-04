@@ -13,9 +13,3 @@ class UserDetail(models.Model):
 
 	def __str__(self):
 		return str(self.user)
-
-
-@receiver(post_save, sender=User)
-def userdetail_handler(sender, instance, created, **kwargs):
-	if created:
-		UserDetail.objects.create(user=instance)
