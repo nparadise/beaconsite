@@ -113,21 +113,27 @@ class FixProfileView(FormView):
 
 	def form_valid(self, form):
 		user = User.objects.get(username=self.kwargs['username'])
+		print('0')
 		detail = UserDetail.objects.filter(user=user)
+		print('1')
 		if not detail:
+			print('2')
 			detail = UserDetail.objects.create(user=user)
+			print('3')
 		else:
+			print('4')
 			detail = detail.first()
+			print('5')
 		user.last_name = form.cleaned_data['lastname']
 		user.first_name = form.cleaned_data['firstname']
 		user.email = form.cleaned_data['email']
 		user.save()
-		print('5')
+		print('6')
 		detail.school = form.cleaned_data['school']
 		detail.major = form.cleaned_data['major']
 		detail.phone = form.cleaned_data['phone']
 		detail.birthday = form.cleaned_data['birthday']
 		detail.save()
-		print('6')
+		print('7')
 		self.success_url = '/user/' + str(user.username)
 		return super(FixProfileView, self).form_valid(form)
