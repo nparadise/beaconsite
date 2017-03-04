@@ -71,10 +71,15 @@ class SignupView(JSONResponseMixin, FormView):
 		lastname = form.cleaned_data['lastname']
 		firstname = form.cleaned_data['firstname']
 		user = User.objects.create_user(username=username, password=password, email=email, last_name=lastname, first_name=firstname)
-		try:
-			detail = UserDetail.objects.get(user=user)
-		except ObjectDoesNotExist:
+		# try:
+		# 	detail = UserDetail.objects.get(user=user)
+		# except ObjectDoesNotExist:
+		# 	detail = UserDetail.objects.create(user=user)
+		detail = UserDetail.objects.filter(user=user)
+		if not detail:
 			detail = UserDetail.objects.create(user=user)
+		else:
+			detail = detail.first()
 		detail.school = form.cleaned_data['school']
 		detail.major = form.cleaned_data['major']
 		detail.phone = form.cleaned_data['phone']
@@ -108,13 +113,11 @@ class FixProfileView(FormView):
 
 	def form_valid(self, form):
 		user = User.objects.get(username=self.kwargs['username'])
-		print(user)
-		try:
-			detail = UserDetail.objects.get(user=user)
-			print(detail)
-		except ObjectDoesNotExist:
+		detail = UserDetail.objects.filter(user=user)
+		if not detail:
 			detail = UserDetail.objects.create(user=user)
-			print(detail)
+		else:
+			detail = detail.first()
 		user.last_name = form.cleaned_data['lastname']
 		user.first_name = form.cleaned_data['firstname']
 		user.email = form.cleaned_data['email']
