@@ -71,20 +71,12 @@ class SignupView(JSONResponseMixin, FormView):
 		lastname = form.cleaned_data['lastname']
 		firstname = form.cleaned_data['firstname']
 		user = User.objects.create_user(username=username, password=password, email=email, last_name=lastname, first_name=firstname)
-		# try:
-		# 	detail = UserDetail.objects.get(user=user)
-		# except ObjectDoesNotExist:
-		# 	detail = UserDetail.objects.create(user=user)
-		detail = UserDetail.objects.filter(user=user)
-		if not detail:
-			detail = UserDetail.objects.create(user=user)
-		else:
-			detail = detail.first()
-		detail.school = form.cleaned_data['school']
-		detail.major = form.cleaned_data['major']
-		detail.phone = form.cleaned_data['phone']
-		detail.birthday = form.cleaned_data['birthday']
-		detail.save()
+		# detail = UserDetail.objects.create(user=user)
+		user.userdetail.school = form.cleaned_data['school']
+		user.userdetail.major = form.cleaned_data['major']
+		user.userdetail.phone = form.cleaned_data['phone']
+		user.userdetail.birthday = form.cleaned_data['birthday']
+		user.userdetail.save()
 
 		return super(SignupView, self).form_valid(form)
 
