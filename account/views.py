@@ -18,7 +18,7 @@ from .models import UserDetail
 class LoginView(FormView):
 	success_url = '/'
 	form_class = LoginForm
-	template_name = 'user_manager/login_form.html'
+	template_name = 'account/login_form.html'
 
 	@method_decorator(sensitive_post_parameters('password'))
 	def dispatch(self, request, *args, **kwargs):
@@ -55,7 +55,7 @@ class JSONResponseMixin(object):
 class SignupView(JSONResponseMixin, FormView):
 	success_url = '/user/login'
 	form_class = JoinForm
-	template_name = 'user_manager/signup_form.html'
+	template_name = 'account/signup_form.html'
 
 	def render_to_response(self, context):
 		if self.request.GET.get('format') == 'json':
@@ -87,14 +87,14 @@ class SignupView(JSONResponseMixin, FormView):
 class ProfileView(DetailView):
 	model = User
 	content_object_name = 'user'
-	template_name = 'user_manager/profile.html'
+	template_name = 'account/profile.html'
 	slug_field = 'username'
 	slug_url_kwarg = 'username'
 
 
 class FixProfileView(FormView):
 	form_class = ProfileForm
-	template_name = 'user_manager/fix_profile.html'
+	template_name = 'account/fix_profile.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(FixProfileView, self).get_context_data(**kwargs)
