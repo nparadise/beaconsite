@@ -16,6 +16,6 @@ class UserDetail(models.Model):
 
 
 @receiver(post_save, sender=User)
-def profile_handler(sender, instance, created, **kwargs):
+def userdetail_handler(sender, instance, created, **kwargs):
 	if created:
 		UserDetail.objects.create(user=instance)

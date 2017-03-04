@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.contrib import auth
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -69,12 +70,16 @@ class SignupView(JSONResponseMixin, FormView):
 		email = form.cleaned_data['email']
 		lastname = form.cleaned_data['lastname']
 		firstname = form.cleaned_data['firstname']
-		school = form.cleaned_data['school']
-		major = form.cleaned_data['major']
-		phone = form.cleaned_data['phone']
-		birthday = form.cleaned_data['birthday']
 		user = User.objects.create_user(username=username, password=password, email=email, last_name=lastname, first_name=firstname)
-		# UserDetail.objects.create(user=user, school=school, major=major, phone=phone, birthday=birthday)
+		try:
+			detail = UserDetail.objects.get(user=user)
+		except ObjectDoesNotExist:
+			detail = UserDetail.objects.create(user=user)
+		detail.school = form.cleaned_data['school']
+		detail.major = form.cleaned_data['major']
+		detail.phone = form.cleaned_data['phone']
+		detail.birthday = form.cleaned_data['birthday']
+		detail.save()
 
 		return super(SignupView, self).form_valid(form)
 
@@ -103,18 +108,18 @@ class FixProfileView(FormView):
 
 	def form_valid(self, form):
 		user = User.objects.get(username=self.kwargs['username'])
-		# try:
-		# 	detail = UserDetail.objects.get(user=user)
-		# except UserDetail.DoesNotExist:
-		# 	detail = UserDetail.objects.create(user=user)
+		try:
+			detail = UserDetail.objects.get(user=user)
+		except ObjectDoesNotExist:
+			detail = UserDetail.objects.create(user=user)
 		user.last_name = form.cleaned_data['lastname']
 		user.first_name = form.cleaned_data['firstname']
 		user.email = form.cleaned_data['email']
-		# detail.school = form.cleaned_data['school']
-		# detail.major = form.cleaned_data['major']
-		# detail.phone = form.cleaned_data['phone']
-		# detail.birthday = form.cleaned_data['birthday']
 		user.save()
-		# detail.save()
+		detail.school = form.cleaned_data['school']
+		detail.major = form.cleaned_data['major']
+		detail.phone = form.cleaned_data['phone']
+		detail.birthday = form.cleaned_data['birthday']
+		detail.save()
 		self.success_url = '/user/' + str(user.username)
 		return super(FixProfileView, self).form_valid(form)
