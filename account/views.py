@@ -113,17 +113,13 @@ class FixProfileView(FormView):
 
 	def form_valid(self, form):
 		user = User.objects.get(username=self.kwargs['username'])
-		print('0')
 		detail = UserDetail.objects.filter(user=user)
-		print('1')
 		if not detail:
-			print('2')
-			detail = UserDetail.objects.create(user=user)
+			detail = UserDetail(user=user)
+			detail.save()
 			print('3')
 		else:
-			print('4')
 			detail = detail.first()
-			print('5')
 		user.last_name = form.cleaned_data['lastname']
 		user.first_name = form.cleaned_data['firstname']
 		user.email = form.cleaned_data['email']
