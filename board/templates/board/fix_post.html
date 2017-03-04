@@ -9,14 +9,14 @@
 <link rel="stylesheet" type="text/css" href='{% static "board/style.css" %}'>
 <script>
 	{% if no_auth %}
-	alert('권한이 없습니다.')
-	window.location = '/'
+	alert('권한이 없습니다.');
+	window.location = '/';
 	{% endif %}
 </script>
 {% endblock %}
 
 {% block body %}
-<form class="form-horizontal write" method="POST">
+<form class="form-horizontal fix" method="POST">
 	{% csrf_token %}
 	<div class="form-group">
 		<label for="inputCategory" class="col-sm-2 control-label">카테고리</label>

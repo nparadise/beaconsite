@@ -14,7 +14,7 @@ from .forms import CreatePostForm
 class BoardView(ListView):
 	content_object_name = 'post_list'
 	template_name = 'board/post_list.html'
-	paginate_by = 5
+	paginate_by = 10
 
 	def get_queryset(self):
 		self.category = get_object_or_404(Category, name=self.kwargs['category'])
@@ -34,6 +34,20 @@ class PostView(DetailView):
 
 	def get_context_data(self, **kwargs):
 		context = super(PostView, self).get_context_data(**kwargs)
+		# set time string output
+		date = context['post'].register_date.astimezone()
+		hour = date.hour
+		if hour >= 12:
+			half = '오후 '
+			if hour > 13:
+				hour -= 12
+		else:
+			half = '오전 '
+			if hour == 0:
+				hour = 12
+		register_date = str(date.year) + '년 ' + str(date.month) + '월 ' + str(date.day) + '일 ' + half + str(hour) + ':' + str(date.minute) + ':' + str(date.second)
+		context['post'].register_date = register_date
+		# var to check the owner of the post
 		if str(context['post'].author) == str(self.request.user.username):
 			context['fixable'] = True
 		else:

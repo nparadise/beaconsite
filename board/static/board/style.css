@@ -24,47 +24,9 @@ nav {
 
 
 /* post.html */
-div.title-bar {
-	width: 100%;
-	padding: 5px 10px;
-	margin-bottom: 6px;
-	border: 1px solid gray;
-}
-
-div.title-bar > span {
-	vertical-align: middle;
-	font-size: 1.4em;
-	display: inline-block;
-}
-
-div.title-bar div.left-lean {
-	float: left;
-}
-
-div.title-bar div.right-lean {
-	float: right;
-}
-
-span.spliter {
-	display: inline-block;
-	width: 2px;
-	height: 20px;
-	background-color: lightgray;
-}
-
-span.post-author {
-
-}
-
-span.post-reg-date {
-
-}
-
 div.post-body {
-	clear: both;
-	padding: 10px;
-	border: 1px solid gray;
-	font-size: 1.1em;
+	font-size: 1.3em;
+	padding: 0 20px;
 }
 
 button#fix-post {
@@ -73,6 +35,16 @@ button#fix-post {
 
 
 /*create_post.html*/
+div.form-group {
+	vertical-align: middle;
+}
+
 input.write-btn {
 	margin: 0 0 0 50%;
+}
+
+
+/*fix_post.html*/
+form.fix {
+	text-align: center;
 }

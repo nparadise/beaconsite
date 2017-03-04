@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-로그인
+회원가입
 {% endblock %}
 
 {% block extra %}
@@ -11,32 +11,96 @@
 
 {% block body %}
 <div class="signup-box">
-	<form action="signup" method="POST">
+	<form class="form-horizontal" action="signup" method="POST">
 		{% csrf_token %}
-		<div class="id">
-			{{ form.id.label }}
+		<h2>필수 정보</h2>
+		<div class="form-group">
+			<label for="inputId" class="col-sm-4 control-label">ID</label>
+			<div class="col-sm-8">
+				{{ form.id }}
+			</div>
 		</div>
-		{{ form.id }}
-		<br>
-		<div class="password">
-			{{ form.password.label }}
+		<div id="id-alert" class="col-sm-offset-4 alert alert-warning" style="padding-top: 5px; padding-bottom: 5px;" hidden>ID already exists</div>
+		<div class="form-group">
+			<label for="inputPassword" class="col-sm-4 control-label">Password</label>
+			<div class="col-sm-8">
+				{{ form.password }}
+			</div>
 		</div>
-		{{ form.password }}
-		<br>
-		<div class="password_check">
-			PW again
+		<div class="form-group">
+			<label for="inputPasswordCheck" class="col-sm-4 control-label">PW again</label>
+			<div class="col-sm-8">
+				{{ form.password_check }}
+			</div>
 		</div>
-		{{ form.password_check }}
-		<br>
-		<div class="email">
-			{{ form.email.label }}
+		<div class="form-group">
+			<label for="inputEmail" class="col-sm-4 control-label">Email</label>
+			<div class="col-sm-8">
+				{{ form.email }}
+			</div>
 		</div>
-		{{ form.email }}
-		<br>
-		<input class="submit" type="submit" value="회원가입하기" />
+		<h2>기본 정보</h2>
+		<div class="form-group">
+			<label for="inputLastname" class="col-sm-4 control-label">Last Name</label>
+			<div class="col-sm-8">
+				{{ form.lastname }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputFirstname" class="col-sm-4 control-label">First Name</label>
+			<div class="col-sm-8">
+				{{ form.firstname }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputSchool" class="col-sm-4 control-label">School</label>
+			<div class="col-sm-8">
+				{{ form.school }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputMajor" class="col-sm-4 control-label">Major</label>
+			<div class="col-sm-8">
+				{{ form.major }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputPhone" class="col-sm-4 control-label">Phone Number</label>
+			<div class="col-sm-8">
+				{{ form.phone }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputBirthday" class="col-sm-4 control-label">Birthday</label>
+			<div class="col-sm-8">
+				{{ form.birthday }}
+			</div>
+		</div>
+		<input id="signup-button" class="btn btn-default" type="submit" value="회원가입하기" />
 	</form>
 </div>
 {% endblock %}
 
 {% block script %}
+<script>
+$("#id_id").change(function() {
+	$.ajax({
+		method: 'GET',
+		data: {
+			format: 'json',
+			username_input: $(this).val()
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data['isExistID'] == true) {
+				$("#id-alert").show();
+				$("#signup-button").prop('disabled', true);
+			} else {
+				$("#id-alert").hide();
+				$("#signup-button").prop('disabled', false);
+			}
+		}
+	});
+});
+</script>
 {% endblock %}

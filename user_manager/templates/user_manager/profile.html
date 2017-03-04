@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+개인정보
+{% endblock %}
+
+{% block extra %}
+<link rel="stylesheet" type="text/css" href='{% static "user_manager/style.css" %}'>
+{% endblock %}
+
+{% block body %}
+<div class="page-header">
+	<h2>{{ user.username }}</h2>
+</div>
+<table class="table table-hover">
+	<tr>
+		<th>성</th>
+		<td>{{ user.last_name }}</td>
+	</tr>
+	<tr>
+		<th>이름</th>
+		<td>{{ user.first_name }}</td>
+	</tr>
+	<tr>
+		<th>이메일</th>
+		<td>{{ user.email }}</td>
+	</tr>
+	<tr>
+		<th>학교</th>
+		<td>{{ user.userdetail.school }}</td>
+	</tr>
+	<tr>
+		<th>전공</th>
+		<td>{{ user.userdetail.major }}</td>
+	</tr>
+	<tr>
+		<th>전화번호</th>
+		<td>{{ user.userdetail.phone }}</td>
+	</tr>
+	<tr>
+		<th>생일</th>
+		<td>{{ user.userdetail.birthday }}</td>
+	</tr>
+</table>
+{% if not no_auth %}
+<button id="fix-profile" class="btn btn-default" onclick="fix_profile();" type="submit">정보 수정</button>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+<script>
+var fix_profile = function() {
+	window.location = '{{ user.username }}/fix';
+}
+</script>
+{% endblock %}

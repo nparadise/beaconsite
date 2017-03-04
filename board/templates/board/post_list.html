@@ -27,7 +27,7 @@
 	{% for post in post_list %}
 		<tr>
 			<th><a href="/board/{{ category }}/{{ post.pk }}">{{ post.title }}</a></th>
-			<th>{{ post.author }}</th>
+			<th><a href="/user/{{ post.author }}">{{ post.author }}</a></th>
 			<th>{{ post.register_date }}</th>
 		</tr>
 	{% endfor %}
@@ -46,7 +46,11 @@
 		{% endif %}
 		</li>
 		{% for page in paginator.page_range %}
+			{% if page == page_obj.number %}
+		<li class="active"><a href="#">{{ page }}<span class="sr-only">(current)</span></a></li>
+			{% else %}
 		<li><a href="/board/{{ category }}?page={{ page }}">{{ page }}</a></li>
+			{% endif %}
 		{% endfor %}
 		<li>
 		{% if page_obj.has_next %}

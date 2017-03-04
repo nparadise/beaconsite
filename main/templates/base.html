@@ -16,7 +16,7 @@
 				<div id="container">
 					<ul class="loginbar pull-right">
 						{% if user.is_authenticated %}
-							<li><a href="#">{{ user.username }}
+							<li><a href="/user/{{ user.username }}">{{ user.username }}
 							<li><a href="/user/logout">로그아웃</a></li>
 						{% else %}
 							<li><a href="/user/signup">회원가입</a></li>
