@@ -71,12 +71,12 @@ class SignupView(JSONResponseMixin, FormView):
 		lastname = form.cleaned_data['lastname']
 		firstname = form.cleaned_data['firstname']
 		user = User.objects.create_user(username=username, password=password, email=email, last_name=lastname, first_name=firstname)
-		# detail = UserDetail.objects.create(user=user)
-		user.userdetail.school = form.cleaned_data['school']
-		user.userdetail.major = form.cleaned_data['major']
-		user.userdetail.phone = form.cleaned_data['phone']
-		user.userdetail.birthday = form.cleaned_data['birthday']
-		user.userdetail.save()
+		detail = UserDetail.objects.create(user=user, birthday=datetime.now())
+		detail.school = form.cleaned_data['school']
+		detail.major = form.cleaned_data['major']
+		detail.phone = form.cleaned_data['phone']
+		detail.birthday = form.cleaned_data['birthday']
+		detail.save()
 
 		return super(SignupView, self).form_valid(form)
 
@@ -106,22 +106,19 @@ class FixProfileView(FormView):
 	def form_valid(self, form):
 		user = User.objects.get(username=self.kwargs['username'])
 		detail = UserDetail.objects.filter(user=user)
+		user.save()
 		if not detail:
-			detail = UserDetail(user=user)
+			detail = UserDetail(user=user, birthday=datetime.now())
 			detail.save()
-			print('3')
 		else:
 			detail = detail.first()
 		user.last_name = form.cleaned_data['lastname']
 		user.first_name = form.cleaned_data['firstname']
 		user.email = form.cleaned_data['email']
-		user.save()
-		print('6')
 		detail.school = form.cleaned_data['school']
 		detail.major = form.cleaned_data['major']
 		detail.phone = form.cleaned_data['phone']
 		detail.birthday = form.cleaned_data['birthday']
 		detail.save()
-		print('7')
 		self.success_url = '/user/' + str(user.username)
 		return super(FixProfileView, self).form_valid(form)

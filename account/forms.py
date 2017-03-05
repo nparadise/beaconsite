@@ -23,7 +23,7 @@ class JoinForm(forms.Form):
 	school = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 	major = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 	phone = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-	birthday = forms.DateField(initial=datetime.now(), required=False, widget=forms.SelectDateWidget(years=years, months=months, attrs={'class': 'form-control'}))
+	birthday = forms.DateField(initial=datetime.now(), widget=forms.SelectDateWidget(years=years, months=months, attrs={'class': 'form-control'}))
 
 
 class ProfileForm(forms.Form):
@@ -33,4 +33,4 @@ class ProfileForm(forms.Form):
 	school = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 	major = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 	phone = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-	birthday = forms.DateField(initial=datetime.now(), required=False, widget=forms.SelectDateWidget(years=years, months=months, attrs={'class': 'form-control'}))
+	birthday = forms.DateField(initial=datetime.now(), widget=forms.SelectDateWidget(years=years, months=months, attrs={'class': 'form-control'}))
