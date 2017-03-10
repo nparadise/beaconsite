@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -8,7 +9,7 @@ from django.urls import reverse
 from django.views.generic import DetailView, FormView, ListView
 
 from .models import Category, Post
-from .forms import CreatePostForm
+from .forms import CheckPasswordForm, CreatePostForm
 
 # Create your views here.
 class BoardView(ListView):
@@ -32,6 +33,9 @@ class PostView(DetailView):
 	content_object_name = 'post'
 	template_name = 'board/post.html'
 
+	def post(self, request, *args, **kwargs):
+		pass
+
 	def get_context_data(self, **kwargs):
 		context = super(PostView, self).get_context_data(**kwargs)
 		# set time string output
@@ -47,6 +51,9 @@ class PostView(DetailView):
 				hour = 12
 		register_date = str(date.year) + '년 ' + str(date.month) + '월 ' + str(date.day) + '일 ' + half + str(hour) + ':' + str(date.minute) + ':' + str(date.second)
 		context['post'].register_date = register_date
+		# fix body
+		body = context['post'].body
+		context['post'].body = body
 		# var to check the owner of the post
 		if str(context['post'].author) == str(self.request.user.username):
 			context['fixable'] = True
@@ -88,7 +95,7 @@ class FixPostView(FormView):
 			context['no_auth'] = False
 		context['category'] = post.category
 		context['title'] = post.title
-		context['body'] = post.body
+		context['body'] = post.body.replace('\r\n', '\\n')
 		context['author'] = post.author
 		return context
 
@@ -100,3 +107,30 @@ class FixPostView(FormView):
 		post.save()
 		self.success_url = '/board/' + str(post.category) + '/' + str(post.id)
 		return super(FixPostView, self).form_valid(form)
+
+
+class DeletePostView(FormView):
+	form_class = CheckPasswordForm
+	template_name = 'board/delete_post.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(DeletePostView, self).get_context_data(**kwargs)
+		post = Post.objects.get(id=self.kwargs['pk'])
+		if str(self.request.user.username) != str(post.author):
+			context['no_auth'] = True
+		else:
+			context['no_auth'] = False
+		return context
+
+	def form_valid(self, form):
+		user = auth.authenticate(username=self.request.user.username, password=form.cleaned_data['password'])
+		if user is not None:
+			if user.is_active:
+				post = Post.objects.filter(id=self.kwargs['pk'])
+				if post:
+					post.delete()
+					self.success_url = '/board/' + self.kwargs['category']
+					return super(DeletePostView, self).form_valid(form)
+		else:
+			return HttpResponseRedirect('/board/' + self.kwargs['category'] + '/' + self.kwargs['pk'])
+

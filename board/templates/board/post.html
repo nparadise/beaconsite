@@ -18,18 +18,23 @@
 		</small>
 	</h1>
 </div>
-<div class="post-body">
-	{{ post.body }}
-</div>
+<div class="post-body">{{ post.body }}</div>
 {% if fixable %}
-<button id="fix-post" class="btn btn-default" onclick="fix_post();" type="submit">글 수정</button>
+<div id="button-wrap">
+	<button id="fix-post" class="btn btn-default" onclick="fix_post();" type="submit">글 수정</button>
+	<button id="delete-post" class="btn btn-danger" onclick="delete_post();" type="submit">글 삭제</button>
+</div>
 {% endif %}
 {% endblock %}
 
 {% block script %}
 <script>
 var fix_post = function() {
-	window.location = '{{ post.id }}/fix'
+	window.location = '{{ post.id }}/fix';
+}
+
+var delete_post = function() {
+	window.location = '{{ post.id }}/delete';
 }
 </script>
 {% endblock %}

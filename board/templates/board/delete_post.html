@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ category }} 글 삭제
+{% endblock %}
+
+{% block extra %}
+<link rel="stylesheet" type="text/css" href='{% static "board/style.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "account/style.css" %}'>
+<script>
+	{% if no_auth %}
+	alert('권한이 없습니다.');
+	window.location = '/';
+	{% endif %}
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="login-box">
+	<form class="form-horizontal" method="POST">
+		{% csrf_token %}
+		<div class="form-group">
+			<label for="inputCategory" class="col-sm-4 control-label">비밀번호</label>
+			<div class="col-sm-8">
+				{{ form.password }}
+			</div>
+		</div>
+		<input class="btn btn-default" type="submit" value="삭제" />
+	</form>
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
