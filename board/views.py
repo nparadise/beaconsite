@@ -1,4 +1,5 @@
 from datetime import datetime
+import html
 
 from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -52,7 +53,7 @@ class PostView(DetailView):
 		register_date = str(date.year) + '년 ' + str(date.month) + '월 ' + str(date.day) + '일 ' + half + str(hour) + ':' + str(date.minute) + ':' + str(date.second)
 		context['post'].register_date = register_date
 		# fix body
-		body = context['post'].body
+		body = html.unescape(context['post'].body)
 		context['post'].body = body
 		# var to check the owner of the post
 		if str(context['post'].author) == str(self.request.user.username):
