@@ -12,11 +12,11 @@
 {% block body %}
 <div class="page-header">
 	<h1>{{ post.title }}&nbsp;
-		<small>
-			<span class="glyphicon glyphicon-pencil"></span>{{ post.author }}&nbsp;
-			<span class="glyphicon glyphicon-calendar"></span>{{ post.register_date }}
-		</small>
 	</h1>
+	<h4>
+		<span class="glyphicon glyphicon-pencil"></span> {{ post.author }}&nbsp;&nbsp;
+		<span class="glyphicon glyphicon-calendar"></span> {{ post.register_date }}
+	</h4>
 </div>
 <div class="post-body">{{ post.body }}</div>
 {% if fixable %}

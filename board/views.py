@@ -50,7 +50,17 @@ class PostView(DetailView):
 			half = '오전 '
 			if hour == 0:
 				hour = 12
-		register_date = str(date.year) + '년 ' + str(date.month) + '월 ' + str(date.day) + '일 ' + half + str(hour) + ':' + str(date.minute) + ':' + str(date.second)
+		register_date = str(date.year) + '년 ' + str(date.month) + '월 ' + str(date.day) + '일 ' + half
+		if hour < 10:
+			register_date += '0'
+		register_date += str(hour) + ':'
+		if date.minute < 10:
+			register_date += '0'
+		register_date += str(date.minute) + ':'
+		if date.second < 10:
+			register_date += '0'
+		register_date += str(date.second)
+
 		context['post'].register_date = register_date
 		# fix body
 		body = html.unescape(context['post'].body)
@@ -96,7 +106,7 @@ class FixPostView(FormView):
 			context['no_auth'] = False
 		context['category'] = post.category
 		context['title'] = post.title
-		context['body'] = post.body.replace('\r\n', '\\n')
+		context['body'] = html.unescape(post.body.replace('\r\n', '\\n'))
 		context['author'] = post.author
 		return context
 
